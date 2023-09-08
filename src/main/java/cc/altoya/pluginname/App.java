@@ -8,6 +8,15 @@ public class App extends JavaPlugin {
     public void onEnable() {
         loadConfig();//Loads .yml
 
+        // DatabaseConnections dbConnection = new DatabaseConnections();
+        // Connection conn = dbConnection.getConnection();
+
+        // try {
+        //     conn.prepareStatement("Select *");
+        // } catch (SQLException e) {
+        //     e.printStackTrace();
+        // }
+
         //How to register commands
         //this.getCommand("commandNameInYml").setExecutor(new ObjectWithOnCommandMethod()); 
 
@@ -20,8 +29,10 @@ public class App extends JavaPlugin {
         File configFile = new File(getDataFolder(), "config.yml");
 
         if(!configFile.exists()){
-            //Add new defaults, path might be items.0.modelID
-            // getConfig().addDefault("pathInYml", "valueToSet");
+            getConfig().addDefault("databasePort", "3306");
+            getConfig().addDefault("databaseUrl", "0.0.0.0");
+            getConfig().addDefault("databaseUsername", "root");
+            getConfig().addDefault("databasePassword", "password");
         }
 
         //Load config

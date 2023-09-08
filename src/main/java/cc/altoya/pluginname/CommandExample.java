@@ -1,4 +1,4 @@
-package com.altoya.pluginname;
+package cc.altoya.pluginname;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
