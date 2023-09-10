@@ -1,4 +1,4 @@
-package cc.altoya.pluginname;
+package cc.altoya.companions;
 
 import java.io.File;
 import java.sql.Connection;

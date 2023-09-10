@@ -1,4 +1,4 @@
-package cc.altoya.pluginname;
+package cc.altoya.companions;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
