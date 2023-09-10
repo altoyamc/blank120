@@ -1,45 +1,53 @@
 package cc.altoya.pluginname;
 
 import java.io.File;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import org.bukkit.plugin.java.JavaPlugin;
 public class App extends JavaPlugin {
     @Override
     public void onEnable() {
-        loadConfig();//Loads .yml
-
-        // DatabaseConnections dbConnection = new DatabaseConnections();
-        // Connection conn = dbConnection.getConnection();
-
-        // try {
-        //     conn.prepareStatement("Select *");
-        // } catch (SQLException e) {
-        //     e.printStackTrace();
-        // }
+        initializeConfig();
+        try {
+            initializeDatabase();
+        } catch (SQLException e) {
+        }
 
         //How to register commands
-        //this.getCommand("commandNameInYml").setExecutor(new ObjectWithOnCommandMethod()); 
+        // this.getCommand("chunk").setExecutor(new Claims()); 
 
         //How to register eventListeners
         //this.getServer().getPluginManager().registerEvents(new ObjectWith@EventHandlers(), this);
     }
 
-    public void loadConfig() {
-        //Get potential config file
+    private void initializeDatabase() throws SQLException{
+        DatabaseConnections.initializeConnection();
+
+        String query = "CREATE TABLE `claims` (`id` INT PRIMARY KEY AUTO_INCREMENT,`uuid` VARCHAR(36) NOT NULL,`x` INT,`y` INT, `trusted` TEXT)";
+
+        try (PreparedStatement statement = DatabaseConnections.getConnection().prepareStatement(query)) {
+          // Execute the query to create the table
+          statement.executeUpdate();
+        }
+    
+    }
+
+    private void initializeConfig(){
         File configFile = new File(getDataFolder(), "config.yml");
 
-        if(!configFile.exists()){
-            getConfig().addDefault("databasePort", "3306");
-            getConfig().addDefault("databaseUrl", "0.0.0.0");
-            getConfig().addDefault("databaseUsername", "root");
-            getConfig().addDefault("databasePassword", "password");
+        if(configFile.exists()){
+            return;
         }
 
-        //Load config
+        getConfig().addDefault("databasePort", "3306");
+        getConfig().addDefault("databaseUrl", "0.0.0.0");
+        getConfig().addDefault("databaseUsername", "root");
+        getConfig().addDefault("databasePassword", "password");
         getConfig().options().copyDefaults(true);
         saveConfig();
-        
     }
+
 
     
 }
