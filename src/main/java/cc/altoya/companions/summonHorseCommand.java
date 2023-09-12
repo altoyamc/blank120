@@ -30,7 +30,7 @@ public class summonHorseCommand implements CommandExecutor {
           horse.getAttribute( Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(1.0);
           horse.setMaxHealth(20.0);
           horse.setHealth(20.0);
-
+          
           p.sendMessage(ChatColor.YELLOW + "You have summoned a horse!");
 
           return true;
